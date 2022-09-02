@@ -10,6 +10,7 @@ import lombok.*;
 public class Reserved extends AbstractEvent {
 
     private Long id;
+    private Integer roomId;
 
     public Reserved(Conference aggregate) {
         super(aggregate);

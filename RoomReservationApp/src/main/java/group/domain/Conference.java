@@ -40,12 +40,15 @@ public class Conference {
 
     @PostPersist
     public void onPostPersist() {
+        group.external.MeetingRoom meetingRoom =
+           RoomReservationAppApplication.applicationContext.getBean(group.external.MeetingRoomService.class)
+           .getMeetingRoom(getRoomId().longValue());
+
+        if(meetingRoom.getUsed()) throw new RuntimeException("Room is already taken!");
+
+
         Reserved reserved = new Reserved(this);
         reserved.publishAfterCommit();
-        // Get request from MeetingRoom
-        //group.external.MeetingRoom meetingRoom =
-        //    Application.applicationContext.getBean(group.external.MeetingRoomService.class)
-        //    .getMeetingRoom(/** mapping value needed */);
 
     }
 
